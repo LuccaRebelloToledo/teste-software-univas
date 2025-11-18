@@ -114,21 +114,23 @@ const Users: React.FC = () => {
         {showForm && (
           <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
             <div className="form-group">
-              <label>Nome:</label>
+              <label htmlFor="name">Nome:</label>
               <input
-                type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
+              id="name"
+              type="text"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
               />
             </div>
             <div className="form-group">
-              <label>Email:</label>
+              <label htmlFor="email">Email:</label>
               <input
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
               />
             </div>
             <div>
