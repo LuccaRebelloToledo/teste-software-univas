@@ -40,8 +40,11 @@ test('edita usuário e reflete na lista', async ({ page }) => {
   test('deleta usuário e desaparece da lista', async ({ page }) => {
     await page.goto('/users')
     
-    // Configura o listener para aceitar o diálogo de confirmação
-    page.on('dialog', dialog => dialog.accept())
+    page.once('dialog', (dialog) => {
+      expect(dialog.message()).toContain('Tem certeza que deseja excluir este usuário?');
+      expect(dialog.type()).toBe('confirm');
+      dialog.accept();
+    });
     
     // Encontra o usuário editado anteriormente e clica em deletar
     await page.getByRole('row', { name: new RegExp(uniqueEmail) })

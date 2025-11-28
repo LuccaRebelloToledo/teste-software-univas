@@ -48,8 +48,11 @@ test('edita categoria e reflete na lista', async ({ page }) => {
   test('deleta categoria e desaparece da lista', async ({ page }) => {
     await page.goto('/categories')
     
-    // Configura o listener para aceitar o diálogo de confirmação
-    page.on('dialog', dialog => dialog.accept())
+    page.once('dialog', (dialog) => {
+      expect(dialog.message()).toContain('Tem certeza que deseja excluir esta categoria?');
+      expect(dialog.type()).toBe('confirm');
+      dialog.accept();
+    });
     
     // Encontra a categoria editada anteriormente e clica em deletar
     await page.getByRole('row', { name: new RegExp(categoryTitle) })
