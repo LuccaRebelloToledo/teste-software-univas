@@ -48,10 +48,10 @@ test('edita categoria e reflete na lista', async ({ page }) => {
   test('deleta categoria e desaparece da lista', async ({ page }) => {
     await page.goto('/categories')
     
-    page.once('dialog', (dialog) => {
-      expect(dialog.message()).toContain('Tem certeza que deseja excluir esta categoria?');
+    page.once('dialog', async (dialog) => {
       expect(dialog.type()).toBe('confirm');
-      dialog.accept();
+      expect(dialog.message()).toContain('Tem certeza que deseja excluir esta categoria?');
+      await dialog.accept();
     });
     
     // Encontra a categoria editada anteriormente e clica em deletar

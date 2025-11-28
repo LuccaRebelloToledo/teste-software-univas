@@ -40,10 +40,10 @@ test('edita usuário e reflete na lista', async ({ page }) => {
   test('deleta usuário e desaparece da lista', async ({ page }) => {
     await page.goto('/users')
     
-    page.once('dialog', (dialog) => {
-      expect(dialog.message()).toContain('Tem certeza que deseja excluir este usuário?');
+    page.once('dialog', async (dialog) => {
       expect(dialog.type()).toBe('confirm');
-      dialog.accept();
+      expect(dialog.message()).toContain('Tem certeza que deseja excluir este usuário?');
+      await dialog.accept();
     });
     
     // Encontra o usuário editado anteriormente e clica em deletar

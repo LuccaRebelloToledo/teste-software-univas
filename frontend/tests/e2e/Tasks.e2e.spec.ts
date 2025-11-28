@@ -80,10 +80,10 @@ test.describe('Tarefas', () => {
     await page.goto('/tasks')
     
     // Configura o listener para aceitar o diálogo de confirmação
-    page.once('dialog', (dialog) => {
-      expect(dialog.message()).toContain('Tem certeza que deseja excluir esta tarefa?');
+    page.once('dialog', async (dialog) => {
       expect(dialog.type()).toBe('confirm');
-      dialog.accept();
+      expect(dialog.message()).toContain('Tem certeza que deseja excluir esta tarefa?');
+      await dialog.accept();
     });
     
     // Encontra a tarefa editada anteriormente e clica em deletar
